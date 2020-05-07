@@ -34,6 +34,8 @@ certbot_create_command: >-
   --email {{ cert_item.email | default(certbot_admin_email) }}
   {{ '--webroot-path ' if certbot_create_method == 'webroot'  else '' }}
   {{ cert_item.webroot | default(certbot_webroot) if certbot_create_method == 'webroot'  else '' }}
+  {{ '--rsa-key-size' if certbot_rsa_key_size else '' }}
+  {{ certbot_rsa_key_size if certbot_rsa_key_size else '' }}
   -d {{ cert_item.domains | join(',') }}
   {{ '--deploy-hook /etc/letsencrypt/renewal-hooks/deploy/ansible.sh' if certbot_deployhook is defined else '' }}
 
